@@ -10,7 +10,7 @@ public static class PhoneBookView
         table.AddColumns("[Teal]Name[/]", "[Teal]Email[/]", "[Teal]Phone Number[/]");
         foreach (Contact contact in contacts)
         {
-            table.AddRow(contact.Name, contact.email, contact.PhoneNumber);
+            table.AddRow(contact.Name, contact.Email, contact.PhoneNumber);
         }
         AnsiConsole.Write(table);
     }

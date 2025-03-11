@@ -43,7 +43,7 @@ public class PhoneController
         try
         {
             contact.Name = updatedContact.Name;
-            contact.email = updatedContact.email;
+            contact.Email = updatedContact.Email;
             contact.PhoneNumber = updatedContact.PhoneNumber;
             _context.SaveChanges();
         }

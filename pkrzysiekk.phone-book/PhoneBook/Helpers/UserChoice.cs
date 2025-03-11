@@ -20,7 +20,7 @@ public class UserChoice
         phoneNumber = AnsiConsole.Prompt(new TextPrompt<string>("Enter Phone Number (eg. +48 333 333 333)")
             .Validate(number => Regex.IsMatch(number, phonePatternRegex))
             );
-        Contact newContact = new() { Name = name, email = email, PhoneNumber = phoneNumber };
+        Contact newContact = new() { Name = name, Email = email, PhoneNumber = phoneNumber };
         return newContact;
     }
 
@@ -30,7 +30,7 @@ public class UserChoice
             .Title("[Blue]Select a contact to update[/]")
             .PageSize(10)
             .AddChoices(contacts)
-            .UseConverter(x => $"{x.Name}| {x.email}| {x.PhoneNumber}")
+            .UseConverter(x => $"{x.Name}| {x.Email}| {x.PhoneNumber}")
             );
         return choice;
     }
