@@ -25,16 +25,7 @@ public class Menu
             var choice = AnsiConsole.Prompt(new SelectionPrompt<MenuChoices>()
                 .Title("[Blue]Main menu[/]")
                 .AddChoices(Enum.GetValues<MenuChoices>())
-                .UseConverter(x => x switch
-                {
-                    MenuChoices.AddContact => "[green]Add Contact[/]",
-                    MenuChoices.ViewContacts => "[green]View Contacts[/]",
-                    MenuChoices.UpdateContact => "[green]Update Contact[/]",
-                    MenuChoices.DeleteContact => "[green]Delete Contact[/]",
-                    MenuChoices.Exit => "[red]Exit[/]",
-                    _ => throw new NotImplementedException()
-                }
-                )
+                .UseConverter(x => x.GetDescription())
                 );
             AnsiConsole.Clear();
 
