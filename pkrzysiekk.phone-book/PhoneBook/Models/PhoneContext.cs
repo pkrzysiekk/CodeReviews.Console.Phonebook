@@ -1,19 +1,30 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Protocols;
 
 namespace PhoneBook.Models;
 
 public class PhoneContext : DbContext
 {
     public DbSet<Contact> Contacts { get; set; }
-    public string DbPath { get; private set; }
 
     public PhoneContext()
     {
-        var folder = Environment.SpecialFolder.LocalApplicationData;
-        var path = Environment.GetFolderPath(folder);
-        DbPath = $"{path}{System.IO.Path.DirectorySeparatorChar}phonebook.db";
+        Database.EnsureCreated();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite($"Data Source={DbPath}");
+    {
+        var config = new ConfigurationBuilder()
+             .SetBasePath(Directory.GetCurrentDirectory())
+             .AddJsonFile("appsettings.json")
+             .Build();
+
+        var connectionString = config.GetConnectionString("Database");
+        if (string.IsNullOrEmpty(connectionString))
+        {
+            throw new InvalidOperationException("Connection string 'Database' not found.");
+        }
+        options.UseSqlServer(connectionString);
+    }
 }
